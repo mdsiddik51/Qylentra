@@ -19,7 +19,7 @@ const Navbar = () => {
   const user = data?.user;
 
   return (
-    <div className="pt-3 w-11/12 mx-auto pb-6">
+    <div className="pt-3 w-11/12 mx-auto pb-4">
       <nav className="px-5  ">
         <header className="flex h-16 items-center justify-between px-1 md:px-6">
           <div className="flex items-center gap-1 md:gap-4">

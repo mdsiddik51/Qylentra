@@ -3,12 +3,12 @@ import { LockOpen } from '@gravity-ui/icons';
 import { PersonMagnifier } from '@gravity-ui/icons';
 const Home = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-emerald-50 to-cyan-50 min-h-screen flex items-center">
+    <section className="relative overflow-hidden bg-linear-to-br from-slate-50 via-emerald-50 to-cyan-50 min-h-screen flex items-center">
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-xl border border-white rounded-full px-5 py-2 shadow-lg">
-              <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-linear-to-r from-emerald-500 to-cyan-500"></span>
 
               <p className="text-sm font-medium text-slate-700">
                 Trusted Healthcare Platform
@@ -18,7 +18,7 @@ const Home = () => {
               Your Health,
               <br />
 
-              <span className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">
                 Our Priority
               </span>
             </h1>
@@ -27,7 +27,7 @@ const Home = () => {
               consultations, and receive quality healthcare anytime.
             </p>
             <div className="mt-10 flex flex-wrap gap-5 justify-center lg:justify-start">
-              <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold shadow-[0_10px_30px_rgba(16,185,129,0.35)] hover:scale-105 transition-all duration-300">
+              <button className="px-8 py-4 rounded-2xl bg-linear-to-r from-emerald-500 to-cyan-500 text-white font-semibold shadow-[0_10px_30px_rgba(16,185,129,0.35)] hover:scale-105 transition-all duration-300">
                 Book Appointment
               </button>
               <button className="px-8 py-4 rounded-2xl bg-white/80 backdrop-blur-xl border border-white shadow-lg text-slate-700 font-semibold hover:scale-105 transition-all duration-300">
@@ -42,7 +42,7 @@ const Home = () => {
               ].map(([num, text], i) => (
                 <div
                   key={i}
-                  className="bg-white/70 backdrop-blur-xl border border-white rounded-3xl px-7 py-5 shadow-xl min-w-[170px]"
+                  className="bg-white/70 backdrop-blur-xl border border-white rounded-3xl px-7 py-5 shadow-xl min-w-42.5"
                 >
                   <h3 className="text-3xl font-bold text-slate-900">
                     {num}
@@ -103,7 +103,7 @@ const Home = () => {
               <img
                 src="/banner.png"
                 alt="Doctors"
-                className="w-full max-w-[620px] object-contain drop-shadow-2xl"
+                className="w-full max-w-155 object-contain drop-shadow-2xl"
               />
             </div>
             <div className="absolute top-6 right-0 lg:right-4 bg-white/80 backdrop-blur-xl border border-white rounded-3xl px-6 py-5 shadow-2xl z-20">
