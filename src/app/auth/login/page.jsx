@@ -15,10 +15,46 @@ import {
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const [value, setValue] = React.useState();
   const [isVisible, setIsVisible] = useState(false);
+
+  const router = useRouter();
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const userData = Object.fromEntries(formData.entries());
+
+    const { data, error } = await authClient.signIn.email({
+      email: userData.email, // required
+      password: userData.password, // required
+      rememberMe: true,
+    });
+    if (error) {
+      toast.error(error.message || "Something went wrong");
+      setTimeout(() => {
+        router.push("/auth/signup");
+      }, 1200);
+      return;
+    }
+    setTimeout(() => {
+      toast.success("Welcome to Qylentra 🎉");
+      router.push("/");
+    }, 1200);
+  };
+
+  //   google auth
+
+  const handelgoogle = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-emerald-50 to-cyan-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-md rounded-[28px] sm:rounded-[32px] border border-white/60 bg-white/80 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-5 sm:p-8">
@@ -29,7 +65,7 @@ const Login = () => {
         </div>
 
         <Surface className="bg-transparent shadow-none">
-          <Form className="space-y-6">
+          <Form onSubmit={onSubmit} className="space-y-6">
             <Fieldset>
               <Fieldset.Group className="space-y-5">
                 <TextField
@@ -166,6 +202,7 @@ const Login = () => {
           </div>
 
           <Button
+            onClick={handelgoogle}
             className="w-full h-12 rounded-sm border border-slate-200 bg-white hover:bg-slate-50"
             variant="tertiary"
           >

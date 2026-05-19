@@ -15,10 +15,45 @@ import {
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const [value, setValue] = React.useState();
   const [isVisible, setIsVisible] = useState(false);
+
+  const router = useRouter();
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const userData = Object.fromEntries(formData.entries());
+
+    const { data, error } = await authClient.signUp.email({
+      name: userData.name,
+      email: userData.email,
+      image: userData.image,
+      password: userData.password,
+    });
+
+    if (error) {
+      toast.error(error.message || "Something went wrong");
+      return;
+    }
+
+    toast.success("Account created successfully. 🎉");
+    router.push("/auth/login");
+  };
+
+  //   hendel google auth
+
+  const handelgoogle = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-emerald-50 to-cyan-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-md rounded-[28px] sm:rounded-[32px] border border-white/60 bg-white/80 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-5 sm:p-8">
@@ -33,7 +68,7 @@ const SignUp = () => {
         </div>
 
         <Surface className="bg-transparent shadow-none">
-          <Form className="space-y-6">
+          <Form onSubmit={onSubmit} className="space-y-6">
             <Fieldset>
               <Fieldset.Group className="space-y-5">
                 <TextField
@@ -74,7 +109,7 @@ const SignUp = () => {
                   <FieldError />
                 </TextField>
 
-                <TextField>
+                <TextField isRequired name="image">
                   <Label className="mb-2 block text-sm font-semibold text-slate-700">
                     Image URL
                   </Label>
@@ -186,6 +221,7 @@ const SignUp = () => {
           </div>
 
           <Button
+            onClick={handelgoogle}
             className="w-full h-12 rounded-sm border border-slate-200 bg-white hover:bg-slate-50"
             variant="tertiary"
           >

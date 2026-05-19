@@ -53,11 +53,7 @@ const Navbar = () => {
               </svg>
             </button>
             <div className="flex items-center  gap-2">
-              <img
-                src="/logo2.png"
-                alt="Qylentra"
-                className="w-20 h-20"
-              />
+              <img src="/logo.png" alt="Qylentra" className="w-20 h-20" />
             </div>
           </div>
 
@@ -91,22 +87,6 @@ const Navbar = () => {
                 <div>
                   <Button
                     onClick={() => signOut()}
-                    className="bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300"
-                  >
-                    SignOut
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className="flex gap-2 ">
-                <Link href="/auth/login" style={{ textDecoration: "none" }}>
-                  <Button variant="outline" className="font-bold rounded-sm shadow-sm ">
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/auth/signup" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="tertiary"
                     className="
                     bg-linear-to-r from-emerald-500 to-teal-600
                         text-white font-semibold 
@@ -116,7 +96,20 @@ const Navbar = () => {
                         hover:scale-105 
                         active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 "
                   >
-                    Register
+                    SignOut
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex gap-2 ">
+                <Link href="/auth/login" style={{ textDecoration: "none" }}>
+                  <button className="relative overflow-hidden rounded-sm bg-transparent px-4 py-2 text-[17px] font-extrabold text-[#212121]  transition-all duration-300 before:absolute before:left-0 before:top-0 before:h-full before:w-0 before:rounded-sm before:bg-[#212121] before:transition-all before:duration-300 before:content-[''] hover:text-[#e8e8e8] hover:before:w-full">
+                    <span className="relative z-10">Login</span>
+                  </button>
+                </Link>
+                <Link href="/auth/signup" style={{ textDecoration: "none" }}>
+                  <Button variant="tertiary" className="relative overflow-hidden rounded-sm bg-linear-to-r from-emerald-500 to-teal-600  text-[17px] font-extrabold text-white  transition-all duration-300 before:absolute before:left-0 before:top-0 before:h-full before:w-0 before:rounded-sm before:bg-[#212121] before:transition-all before:duration-300 before:content-[''] hover:text-[#e8e8e8] hover:before:w-full px-6 py-5">
+                    <span className="relative z-10"> Register</span>
                   </Button>
                 </Link>
               </div>

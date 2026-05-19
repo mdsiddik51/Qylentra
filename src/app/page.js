@@ -1,6 +1,7 @@
 import { BookmarkFill } from '@gravity-ui/icons';
 import { LockOpen } from '@gravity-ui/icons';
 import { PersonMagnifier } from '@gravity-ui/icons';
+import Link from 'next/link';
 const Home = () => {
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-slate-50 via-emerald-50 to-cyan-50 min-h-screen flex items-center">
@@ -27,12 +28,16 @@ const Home = () => {
               consultations, and receive quality healthcare anytime.
             </p>
             <div className="mt-10 flex flex-wrap gap-5 justify-center lg:justify-start">
-              <button className="px-8 py-4 rounded-2xl bg-linear-to-r from-emerald-500 to-cyan-500 text-white font-semibold shadow-[0_10px_30px_rgba(16,185,129,0.35)] hover:scale-105 transition-all duration-300">
-                Book Appointment
-              </button>
-              <button className="px-8 py-4 rounded-2xl bg-white/80 backdrop-blur-xl border border-white shadow-lg text-slate-700 font-semibold hover:scale-105 transition-all duration-300">
-                Learn More
-              </button>
+              <Link href="/allappointment" style={{ textDecoration: "none" }}>
+                <button className="relative overflow-hidden rounded-sm bg-linear-to-r from-emerald-500 to-teal-600  text-[17px] font-extrabold text-white  transition-all duration-300 before:absolute before:left-0 before:top-0 before:h-full before:w-0 before:rounded-sm before:bg-[#212121] before:transition-all before:duration-300 before:content-[''] hover:text-[#e8e8e8] hover:before:w-full px-8 py-4">
+                  <span className="relative z-10">All Appointment</span>
+                </button>
+              </Link>
+              <Link href="/dashboard" style={{ textDecoration: "none" }}>
+                <button className="relative overflow-hidden rounded-sm bg-linear-to-r from-emerald-500 to-teal-600  text-[17px] font-extrabold text-white  transition-all duration-300 before:absolute before:left-0 before:top-0 before:h-full before:w-0 before:rounded-sm before:bg-[#212121] before:transition-all before:duration-300 before:content-[''] hover:text-[#e8e8e8] hover:before:w-full px-8 py-4">
+                  <span className="relative z-10">Dashboard</span>
+                </button>
+              </Link>
             </div>
             <div className="mt-14 flex flex-wrap gap-5 justify-center lg:justify-start">
               {[
@@ -70,7 +75,7 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-             
+
               <div className="flex items-center gap-3">
                 <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center">
                   <PersonMagnifier />
