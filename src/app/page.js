@@ -11,7 +11,7 @@ const Home = async () => {
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-slate-50 via-emerald-50 to-cyan-50 min-h-screen flex items-center">
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20 w-full">
-        <di className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-xl border border-white rounded-full px-5 py-2 shadow-lg">
               <span className="w-2.5 h-2.5 rounded-full bg-linear-to-r from-emerald-500 to-cyan-500"></span>
@@ -134,7 +134,7 @@ const Home = async () => {
               </p>
             </div>
           </div>
-        </di>
+        </div>
 
 
         {/* top rated doctor  */}
