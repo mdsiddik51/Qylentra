@@ -2,6 +2,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import { Toaster } from "react-hot-toast";
+import Footer from "./components/footer";
 
 
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
         <main>
           {children}
         </main>
+        <Footer/>
         <Toaster
           position="top-center"
           reverseOrder={false}
