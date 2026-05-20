@@ -4,9 +4,75 @@ import { LockOpen } from '@gravity-ui/icons';
 import { PersonMagnifier } from '@gravity-ui/icons';
 import Link from 'next/link';
 import TopCard from './topcard/retacard';
+import {
+  FaUsers,
+  FaUserMd,
+  FaHospital,
+  FaStar,
+} from "react-icons/fa";
 const Home = async () => {
   const data = await getDoctorData();
   const topDoctors = data.sort((a, b) => b.rating - a.rating).slice(0, 3);
+
+  const specialties = [
+    {
+      title: "Cardiology",
+      doctors: "120+ Doctors",
+      icon: "❤️",
+    },
+    {
+      title: "Neurology",
+      doctors: "85+ Doctors",
+      icon: "🧠",
+    },
+    {
+      title: "Dental Care",
+      doctors: "140+ Doctors",
+      icon: "🦷",
+    },
+    {
+      title: "Pediatrics",
+      doctors: "95+ Doctors",
+      icon: "👶",
+    },
+    {
+      title: "Orthopedics",
+      doctors: "110+ Doctors",
+      icon: "🦴",
+    },
+    {
+      title: "Dermatology",
+      doctors: "75+ Doctors",
+      icon: "✨",
+    },
+  ];
+  const stats = [
+    {
+      id: 1,
+      title: "Happy Patients",
+      value: "25K+",
+      icon: <FaUsers />,
+    },
+    {
+      id: 2,
+      title: "Expert Doctors",
+      value: "500+",
+      icon: <FaUserMd />,
+    },
+    {
+      id: 3,
+      title: "Hospital Partners",
+      value: "25+",
+      icon: <FaHospital />,
+    },
+    {
+      id: 4,
+      title: "Positive Reviews",
+      value: "98%",
+      icon: <FaStar />,
+    },
+  ];
+
 
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-slate-50 via-emerald-50 to-cyan-50 min-h-screen flex items-center">
@@ -46,7 +112,7 @@ const Home = async () => {
             </div>
             <div className="mt-14 flex flex-wrap gap-5 justify-center lg:justify-start">
               {[
-                ["100+", "Expert Doctors"],
+                ["500+", "Expert Doctors"],
                 ["25K+", "Happy Patients"],
                 ["24/7", "Support"],
               ].map(([num, text], i) => (
@@ -137,8 +203,6 @@ const Home = async () => {
         </div>
 
 
-        {/* top rated doctor  */}
-
 
         <div className='pt-20 text-center'>
           <div>
@@ -154,6 +218,96 @@ const Home = async () => {
             }
           </div>
         </div>
+
+        <section className="py-20">
+          <div className=" mx-auto px-6">
+
+            <div className="text-center  mx-auto">
+              <p className="text-purple-600 font-semibold  uppercase">
+                Our Specialties
+              </p>
+
+              <h2 className="mt-3 text-4xl md:text-5xl font-bold text-gray-900">
+                Top Medical Specialties
+              </h2>
+
+              <p className="mt-5 text-gray-500 text-lg">
+                Find experienced doctors from different specialties and book
+                appointments easily.
+              </p>
+            </div>
+
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+              {specialties.map((item, index) => (
+                <div
+                  key={index}
+                  className=" bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden"
+                >
+                  <div className=" w-20 h-20 rounded-2xl bg-linear-to-r from-[#4F39F6] to-[#9514FA] flex items-center justify-center text-4xl shadow-lg">
+                    {item.icon}
+                  </div>
+
+                  <div className="relative mt-6">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-2 text-gray-500 font-medium">
+                      {item.doctors}
+                    </p>
+
+                    <button className="mt-6  items-center gap-2 text-purple-600 font-semibold hover:gap-3 transition-all duration-300">
+                      Explore Doctors →
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="py-10">
+          <div className="w-11/12 mx-auto px-6">
+
+            <div className="text-center">
+              <p className="uppercase text-[#7C3AED] font-semibold">
+                Our Achievements
+              </p>
+
+              <h2 className="pt-4 text-4xl md:text-5xl font-bold text-gray-900">
+                Trusted by Thousands of Patients
+              </h2>
+
+              <p className="mt-5 text-lg text-gray-500">
+                We provide world-class healthcare services with trusted doctors,
+                modern facilities, and exceptional patient support.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+              {stats.map((item) => (
+                <div
+                  key={item.id}
+                  className=" rounded-3xl border border-gray-200 bg-white p-8 text-center hover:-translate-y-2 hover:border-purple-400 transition-all duration-300 shadow-md hover:shadow-2xl"
+                >
+
+     
+                  <div className=" mx-auto flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-[#4F39F6] to-[#9514FA] text-white text-4xl shadow-lg">
+                    {item.icon}
+                  </div>
+
+     
+                  <h3 className="mt-6 text-5xl font-black text-gray-900">
+                    {item.value}
+                  </h3>
+
+                  <p className="mt-3 text-lg font-medium text-gray-600">
+                    {item.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import { detailsData } from "@/lib/data";
+import Link from "next/link";
 
 const Details = async ({ params }) => {
   const { id } = await params;
@@ -92,9 +93,11 @@ const Details = async ({ params }) => {
               </div>
 
               <div className="mt-8 sm:mt-10">
-                <button className="w-full bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg">
-                  Book Appointment
-                </button>
+                <Link href="/booking">
+                  <button className="w-full bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg">
+                    Book Appointment
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
