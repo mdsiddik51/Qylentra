@@ -5,7 +5,6 @@ import { signOut, useSession } from "@/lib/auth-client";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const { data, ispanding } = useSession();
 
   if (ispanding) {
@@ -108,8 +107,18 @@ const Navbar = () => {
                   </button>
                 </Link>
                 <Link href="/auth/signup" style={{ textDecoration: "none" }}>
-                  <Button variant="tertiary" className="relative overflow-hidden rounded-sm bg-linear-to-r from-emerald-500 to-teal-600  text-[17px] font-extrabold text-white  transition-all duration-300 before:absolute before:left-0 before:top-0 before:h-full before:w-0 before:rounded-sm before:bg-[#212121] before:transition-all before:duration-300 before:content-[''] hover:text-[#e8e8e8] hover:before:w-full px-6 py-5">
-                    <span className="relative z-10"> Register</span>
+                  <Button
+                    variant="tertiary"
+                    className="
+                    bg-linear-to-r from-emerald-500 to-teal-600
+                        text-white font-semibold 
+                        px-6 py-3 rounded-sm 
+                        shadow-sm hover:shadow-sm
+                        transition-all duration-300 
+                        hover:scale-105 
+                        active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 "
+                  >
+                    Register
                   </Button>
                 </Link>
               </div>

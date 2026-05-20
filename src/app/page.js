@@ -1,12 +1,17 @@
+import { getDoctorData } from '@/lib/data';
 import { BookmarkFill } from '@gravity-ui/icons';
 import { LockOpen } from '@gravity-ui/icons';
 import { PersonMagnifier } from '@gravity-ui/icons';
 import Link from 'next/link';
-const Home = () => {
+import TopCard from './topcard/retacard';
+const Home = async () => {
+  const data = await getDoctorData();
+  const topDoctors = data.sort((a, b) => b.rating - a.rating).slice(0, 3);
+
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-slate-50 via-emerald-50 to-cyan-50 min-h-screen flex items-center">
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 py-20 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <di className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-xl border border-white rounded-full px-5 py-2 shadow-lg">
               <span className="w-2.5 h-2.5 rounded-full bg-linear-to-r from-emerald-500 to-cyan-500"></span>
@@ -128,6 +133,25 @@ const Home = () => {
                 Specialists
               </p>
             </div>
+          </div>
+        </di>
+
+
+        {/* top rated doctor  */}
+
+
+        <div className='pt-20 text-center'>
+          <div>
+            <h2 className='pt-6 text-4xl font-bold'>Top Rated Doctors</h2>
+            <h3 className='text-black/30'>Top-rated doctor providing expert medical care with compassion, precision, and years of trusted experience.</h3>
+          </div>
+
+          <div className="pt-16 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 place-items-center">
+            {
+              topDoctors.map((doctor) => (
+                <TopCard key={doctor._id} doctor={doctor} />
+              ))
+            }
           </div>
         </div>
       </div>

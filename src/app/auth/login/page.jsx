@@ -34,17 +34,23 @@ const Login = () => {
       password: userData.password, // required
       rememberMe: true,
     });
+
+    const {data: tokenData} = await authClient.token();
+    console.log(tokenData);
     if (error) {
       toast.error(error.message || "Something went wrong");
       setTimeout(() => {
         router.push("/auth/signup");
-      }, 1200);
+      }, 1000);
       return;
     }
+    // token : eyJhbGciOiJFZERTQSIsImtpZCI6IjZhMGQ1MGRmNGJlYjRmM2…dVuAxMhliiSo0WoomxgLdqJYBFKbNNk6gojGR9CUcOO49A4Bw
     setTimeout(() => {
       toast.success("Welcome to Qylentra 🎉");
-      router.push("/");
-    }, 1200);
+      window.location.href = "/";
+    }, 1000);
+
+    router.refresh("/");
   };
 
   //   google auth
