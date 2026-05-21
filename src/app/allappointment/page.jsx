@@ -13,7 +13,6 @@ const appointment = () => {
       const data = await getDoctorData();
       setDoctors(data);
     };
-
     fetchDoctors();
   }, []);
 

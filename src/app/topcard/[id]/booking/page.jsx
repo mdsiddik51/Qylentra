@@ -12,9 +12,11 @@ import {
   DatePicker,
   TimeField,
 } from "@heroui/react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 const Booking = () => {
+
+  const router = useRouter();
   const params = useParams();
   const doctorId = params?.id;
 
@@ -60,7 +62,6 @@ const Booking = () => {
         time: userData.time,
       };
 
-      console.log(updateAppointment);
       const response = await fetch(
         `http://localhost:8080/booking/${doctorId}`,
         {
@@ -84,6 +85,7 @@ const Booking = () => {
 
       // Success
       toast.success("Appointment booked successfully 🎉");
+      router.push('/dashboard');
     } catch (error) {
       toast.error("Something went wrong");
     }
