@@ -1,10 +1,15 @@
+import { auth } from "@/lib/auth";
 import { detailsData } from "@/lib/data";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 const Details = async ({ params }) => {
   const { id } = await params;
-  const doctor = await detailsData(id);
-  console.log(doctor);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  const doctor = await detailsData(id , token);
 
   return (
     <div className="w-11/12 mx-auto">

@@ -21,7 +21,6 @@ import toast from "react-hot-toast";
 
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
-
   const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +34,7 @@ const Login = () => {
       rememberMe: true,
     });
 
-    const {data: tokenData} = await authClient.token();
+    const { data: tokenData } = await authClient.token();
     console.log(tokenData);
     if (error) {
       toast.error(error.message || "Something went wrong");
@@ -117,8 +116,8 @@ const Login = () => {
                   name="password"
                   isRequired
                   validate={(value) => {
-                    if (value.length < 8) {
-                      return "Password must be at least 8 characters";
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
                     }
 
                     if (!/[A-Z]/.test(value)) {
@@ -169,7 +168,7 @@ const Login = () => {
                   </InputGroup>
 
                   <Description className="mt-2 text-xs sm:text-sm text-slate-500 ">
-                    Must contain at least 8 characters, 1 uppercase, 1 lowercase
+                    Must contain at least 6 characters, 1 uppercase, 1 lowercase
                     and 1 number
                   </Description>
 
@@ -183,7 +182,7 @@ const Login = () => {
                   className="h-12 w-full rounded-sm bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold shadow-sm"
                 >
                   <PersonPlus className="size-5" />
-                  Sign Up
+                  Login
                 </Button>
 
                 <Button

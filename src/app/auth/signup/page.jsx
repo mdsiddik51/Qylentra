@@ -130,8 +130,8 @@ const SignUp = () => {
                   name="password"
                   isRequired
                   validate={(value) => {
-                    if (value.length < 8) {
-                      return "Password must be at least 8 characters";
+                    if (value.length < 6) {
+                      return "Password must be at least 6 characters";
                     }
 
                     if (!/[A-Z]/.test(value)) {
@@ -182,7 +182,7 @@ const SignUp = () => {
                   </InputGroup>
 
                   <Description className="mt-2 text-xs sm:text-sm text-slate-500 ">
-                    Must contain at least 8 characters, 1 uppercase, 1 lowercase
+                    Must contain at least 6 characters, 1 uppercase, 1 lowercase
                     and 1 number
                   </Description>
 
