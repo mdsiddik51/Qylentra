@@ -33,7 +33,7 @@ const appointment = () => {
         </div>
       </div>
     );
-  };
+  }
   return (
     <div className="w-11/12 mx-auto">
       <div className="text-center">
@@ -51,7 +51,7 @@ const appointment = () => {
             <SearchField.Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..."
+              placeholder="Search doctor by name..."
             />
             <SearchField.ClearButton />
           </SearchField.Group>

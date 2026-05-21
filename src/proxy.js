@@ -16,5 +16,5 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/topcard/:path*"],
+  matcher: ["/topcard/:path*" , '/dashboard'],
 };

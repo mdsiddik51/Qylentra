@@ -1,7 +1,6 @@
 import { Button } from "@heroui/react";
 import Link from "next/link";
 
-
 const TopCard = ({ doctor }) => {
   return (
     <div className="w-full  group bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-[0_12px_35px_rgba(15,23,42,0.08)] hover:shadow-[0_18px_50px_rgba(15,23,42,0.14)] hover:-translate-y-1 transition-all duration-300">

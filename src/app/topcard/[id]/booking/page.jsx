@@ -1,4 +1,5 @@
 "use client";
+import { authClient, useSession } from "@/lib/auth-client";
 import {
   Button,
   Input,
@@ -11,8 +12,82 @@ import {
   DatePicker,
   TimeField,
 } from "@heroui/react";
-import { TbBrandBooking } from "react-icons/tb";
+import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 const Booking = () => {
+  const params = useParams();
+  const doctorId = params?.id;
+
+  // Session
+  const { data: session } = useSession();
+
+  // Submit form
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const userData = {
+      email: formData.get("email"),
+      patientName: formData.get("patientName"),
+      gender: formData.get("gender"),
+      phone: formData.get("phone"),
+      date: formData.get("date"),
+      time: formData.get("time"),
+    };
+    await addAppointment(userData);
+    e.target.reset();
+  };
+
+  // Add appointment
+  const addAppointment = async (userData) => {
+    try {
+      const { data: jwtdata } = await authClient.token();
+
+      const token = jwtdata?.token;
+      if (!token) {
+        toast.error("Authentication failed");
+        return;
+      }
+      const updateAppointment = {
+        doctorId,
+        userId: session?.user?.id,
+        email: userData.email,
+        patientName: userData.patientName,
+        gender: userData.gender,
+        phone: userData.phone,
+        date: userData.date,
+        time: userData.time,
+      };
+
+      console.log(updateAppointment);
+      const response = await fetch(
+        `http://localhost:8080/booking/${doctorId}`,
+        {
+          method: "PATCH",
+
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify(updateAppointment),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data?.message || "Booking failed");
+        return;
+      }
+
+      // Success
+      toast.success("Appointment booked successfully 🎉");
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
   return (
     <div className="py-10 flex justify-center">
       <div className=" rounded-lg shadow-lg p-8 ">
@@ -37,8 +112,9 @@ const Booking = () => {
             </h2>
           </div>
         </div>
-        <form className="flex flex-col gap-4">
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <TextField
+          isRequired
             className="w-full"
             name="email"
             type="email"
@@ -48,17 +124,9 @@ const Booking = () => {
             <Input placeholder="Enter your email" />
           </TextField>
           <TextField
+          isRequired
             className="w-full"
-            name="name"
-            type="text"
-            variant="secondary"
-          >
-            <Label>Doctor Name</Label>
-            <Input placeholder="Enter your name" />
-          </TextField>
-          <TextField
-            className="w-full"
-            name="name"
+            name="patientName"
             type="text"
             variant="secondary"
           >
@@ -67,7 +135,7 @@ const Booking = () => {
           </TextField>
           <div className="flex gap-4">
             <div>
-              <Select className="w-fit" placeholder="Select one">
+              <Select className="w-fit" name="gender" placeholder="Select one">
                 <Label>Gender</Label>
                 <Select.Trigger>
                   <Select.Value />
@@ -75,11 +143,11 @@ const Booking = () => {
                 </Select.Trigger>
                 <Select.Popover>
                   <ListBox>
-                    <ListBox.Item id="florida" textValue="Florida">
+                    <ListBox.Item id="mail"  textValue="Florida">
                       Male
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="delaware" textValue="Delaware">
+                    <ListBox.Item id="female" textValue="Delaware">
                       Female
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
@@ -89,6 +157,7 @@ const Booking = () => {
             </div>
             <div>
               <TextField
+              isRequired
                 className="w-fit"
                 name="phone"
                 type="tel"
@@ -99,7 +168,7 @@ const Booking = () => {
               </TextField>
             </div>
           </div>
-          <DatePicker className="w-full" name="date">
+          <DatePicker isRequired className="w-full" name="date">
             <Label>Date</Label>
             <DateField.Group fullWidth>
               <DateField.Input>
@@ -137,7 +206,7 @@ const Booking = () => {
               </Calendar>
             </DatePicker.Popover>
           </DatePicker>
-          <TimeField className="w-full" name="time">
+          <TimeField isRequired className="w-full" name="time">
             <Label>Time</Label>
             <TimeField.Group>
               <TimeField.Input>
@@ -147,18 +216,16 @@ const Booking = () => {
           </TimeField>
           <div className="flex gap-2 pt-4">
             <Button
-              slot="close"
+              type="Submit"
+              className="bg-linear-to-r from-emerald-500 to-teal-600 rounded-md text-white py-6 px-4 "
+            >
+              Confirm Booking
+            </Button>
+            <Button
               className="bg-linear-to-r from-emerald-500 to-teal-600 rounded-md text-white py-6 px-4 "
               variant="secondary"
             >
               Cancel
-            </Button>
-            <Button
-              slot="close"
-              className="bg-linear-to-r from-emerald-500 to-teal-600 rounded-md text-white py-6 px-4 "
-            >
-              {" "}
-              Confirm Booking
             </Button>
           </div>
         </form>

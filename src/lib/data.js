@@ -1,5 +1,4 @@
-import { headers } from "next/headers";
-import { auth } from "./auth";
+
 
 export const getDoctorData = async () => {
     const response = await fetch('http://localhost:8080/doctor');

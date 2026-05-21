@@ -1,11 +1,24 @@
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import '../globals.css'
 
 const DoctorCard = ({ doctor }) => {
+  if (doctor.length === 0) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    );
+  }
   return (
-    <div
-      className="w-full  group bg-white rounded-[32px] overflow-hidden border border-slate-100 hover:-translate-y-2 ver:shadow-2xl hover:shadow-emerald-200/50 transition-all duration-300"
-    >
+    <div className="w-full  group bg-white rounded-[32px] overflow-hidden border border-slate-100 hover:-translate-y-2 ver:shadow-2xl hover:shadow-emerald-200/50 transition-all duration-300">
       <div className="relative h-56 overflow-hidden">
         <img
           src={doctor.image}

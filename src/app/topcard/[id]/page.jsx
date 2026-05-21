@@ -8,9 +8,7 @@ const Details = async ({ params }) => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-
   const doctor = await detailsData(id , token);
-
   return (
     <div className="w-11/12 mx-auto">
       <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-emerald-50 px-4 py-10">
@@ -98,7 +96,7 @@ const Details = async ({ params }) => {
               </div>
 
               <div className="mt-8 sm:mt-10">
-                <Link href="/booking">
+                <Link href={`/topcard/${doctor._id}/booking`}>
                   <button className="w-full bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg">
                     Book Appointment
                   </button>
