@@ -3,6 +3,12 @@ import { detailsData } from "@/lib/data";
 import { headers } from "next/headers";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Doctor Details | Qylentra",
+  description:
+    "Explore detailed doctor profiles, specialties, experience, availability, and appointment information on Qylentra to book the right healthcare professional easily.",
+};
+
 const Details = async ({ params }) => {
   const { id } = await params;
   const { token } = await auth.api.getToken({

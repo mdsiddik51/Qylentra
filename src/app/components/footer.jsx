@@ -19,7 +19,9 @@ const Footer = () => {
         <div className="space-y-5">
           <div className="flex items-center gap-3">
             <div className="h-14 w-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg">
-              <span className="text-3xl">🩺</span>
+              <span className="text-3xl">
+                <img src="./logo.png" alt="" />
+              </span>
             </div>
 
             <div>

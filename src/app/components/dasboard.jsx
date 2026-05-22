@@ -13,11 +13,22 @@ import {
   InputGroup,
   Tabs,
   AlertDialog,
+  Select,
+  ListBox,
+  Calendar,
+  DateField,
+  DatePicker,
+  TimeField,
 } from "@heroui/react";
 
 import toast from "react-hot-toast";
 
-const DashboardClient = ({ user, appointments, DeletUser }) => {
+const DashboardClient = ({
+  user,
+  appointments,
+  DeletUser,
+  updateAppointment,
+}) => {
   // Update profile
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -36,8 +47,23 @@ const DashboardClient = ({ user, appointments, DeletUser }) => {
     toast.success("Profile updated successfully 🎉");
   };
 
-  const handeldelte = async (userid) => {
-    await DeletUser(userid);
+  const handeldelte = async (userid, id) => {
+    await DeletUser(userid, id);
+  };
+
+  const handleUpdate = (e, id) => {
+    e.preventDefault();
+
+    const formData = {
+      email: e.target.email.value,
+      patientName: e.target.patientName.value,
+      gender: e.target.gender.value,
+      phone: e.target.phone.value,
+      date: e.target.date.value,
+      time: e.target.time.value,
+    };
+
+    updateAppointment(formData, id);
   };
 
   return (
@@ -90,7 +116,7 @@ const DashboardClient = ({ user, appointments, DeletUser }) => {
                       <Modal>
                         <Button
                           variant="secondary"
-                          className="rounded-xl text-sm"
+                          className="rounded-full text-sm"
                         >
                           <PersonPencil className="size-4" />
                           Edit Appointment
@@ -114,47 +140,165 @@ const DashboardClient = ({ user, appointments, DeletUser }) => {
                               <Modal.Body className="p-5">
                                 <Surface variant="default">
                                   <form
-                                    onSubmit={onSubmit}
+                                    onSubmit={(e) =>
+                                      handleUpdate(e, appointment._id)
+                                    }
                                     className="flex flex-col gap-4"
                                   >
                                     <TextField
                                       isRequired
-                                      name="name"
-                                      type="text"
+                                      className="w-full"
+                                      name="email"
+                                      type="email"
+                                      variant="secondary"
                                     >
-                                      <Label>Name</Label>
-
-                                      <Input
-                                        name="name"
-                                        defaultValue={user?.name || ""}
-                                        placeholder="Enter your name"
-                                      />
+                                      <Label>Your Email</Label>
+                                      <Input placeholder="Enter your email" />
+                                    </TextField>
+                                    <TextField
+                                      isRequired
+                                      className="w-full"
+                                      type="text"
+                                      variant="secondary"
+                                    >
+                                      <Label>Doctor Name</Label>
+                                      <Input value={appointment.doctorname} />
                                     </TextField>
 
                                     <TextField
                                       isRequired
-                                      name="image"
+                                      className="w-full"
+                                      name="patientName"
                                       type="text"
+                                      variant="secondary"
                                     >
-                                      <Label>Image Link</Label>
-
-                                      <InputGroup>
-                                        <InputGroup.Input
-                                          name="image"
-                                          defaultValue={user?.image || ""}
-                                          placeholder="https://imgUrl...."
-                                          className="w-full"
-                                        />
-                                      </InputGroup>
+                                      <Label>Patient Name</Label>
+                                      <Input placeholder="Enter the Patient Name" />
                                     </TextField>
-
+                                    <div className="flex gap-4">
+                                      <div>
+                                        <Select
+                                          className="w-fit"
+                                          name="gender"
+                                          placeholder="Select one"
+                                        >
+                                          <Label>Gender</Label>
+                                          <Select.Trigger>
+                                            <Select.Value />
+                                            <Select.Indicator />
+                                          </Select.Trigger>
+                                          <Select.Popover>
+                                            <ListBox>
+                                              <ListBox.Item
+                                                id="mail"
+                                                textValue="Florida"
+                                              >
+                                                Male
+                                                <ListBox.ItemIndicator />
+                                              </ListBox.Item>
+                                              <ListBox.Item
+                                                id="female"
+                                                textValue="Delaware"
+                                              >
+                                                Female
+                                                <ListBox.ItemIndicator />
+                                              </ListBox.Item>
+                                            </ListBox>
+                                          </Select.Popover>
+                                        </Select>
+                                      </div>
+                                      <div>
+                                        <TextField
+                                          isRequired
+                                          className="w-fit"
+                                          name="phone"
+                                          type="tel"
+                                          variant="secondary"
+                                        >
+                                          <Label>Phone</Label>
+                                          <Input placeholder="Enter your phone number" />
+                                        </TextField>
+                                      </div>
+                                    </div>
+                                    <DatePicker
+                                      isRequired
+                                      className="w-full"
+                                      name="date"
+                                    >
+                                      <Label>Date</Label>
+                                      <DateField.Group fullWidth>
+                                        <DateField.Input>
+                                          {(segment) => (
+                                            <DateField.Segment
+                                              segment={segment}
+                                            />
+                                          )}
+                                        </DateField.Input>
+                                        <DateField.Suffix>
+                                          <DatePicker.Trigger>
+                                            <DatePicker.TriggerIndicator />
+                                          </DatePicker.Trigger>
+                                        </DateField.Suffix>
+                                      </DateField.Group>
+                                      <DatePicker.Popover>
+                                        <Calendar aria-label="Event date">
+                                          <Calendar.Header>
+                                            <Calendar.YearPickerTrigger>
+                                              <Calendar.YearPickerTriggerHeading />
+                                              <Calendar.YearPickerTriggerIndicator />
+                                            </Calendar.YearPickerTrigger>
+                                            <Calendar.NavButton slot="previous" />
+                                            <Calendar.NavButton slot="next" />
+                                          </Calendar.Header>
+                                          <Calendar.Grid>
+                                            <Calendar.GridHeader>
+                                              {(day) => (
+                                                <Calendar.HeaderCell>
+                                                  {day}
+                                                </Calendar.HeaderCell>
+                                              )}
+                                            </Calendar.GridHeader>
+                                            <Calendar.GridBody>
+                                              {(date) => (
+                                                <Calendar.Cell date={date} />
+                                              )}
+                                            </Calendar.GridBody>
+                                          </Calendar.Grid>
+                                          <Calendar.YearPickerGrid>
+                                            <Calendar.YearPickerGridBody>
+                                              {({ year }) => (
+                                                <Calendar.YearPickerCell
+                                                  year={year}
+                                                />
+                                              )}
+                                            </Calendar.YearPickerGridBody>
+                                          </Calendar.YearPickerGrid>
+                                        </Calendar>
+                                      </DatePicker.Popover>
+                                    </DatePicker>
+                                    <TimeField
+                                      isRequired
+                                      className="w-full"
+                                      name="time"
+                                    >
+                                      <Label>Time</Label>
+                                      <TimeField.Group>
+                                        <TimeField.Input>
+                                          {(segment) => (
+                                            <TimeField.Segment
+                                              segment={segment}
+                                            />
+                                          )}
+                                        </TimeField.Input>
+                                      </TimeField.Group>
+                                    </TimeField>
                                     <Modal.Footer>
                                       <Button slot="close" variant="secondary">
                                         Cancel
                                       </Button>
 
                                       <Button type="submit" slot="close">
-                                        Update
+                                        Update Appointment{" "}
                                       </Button>
                                     </Modal.Footer>
                                   </form>

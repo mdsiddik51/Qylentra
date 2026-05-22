@@ -57,14 +57,26 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-emerald-50 to-cyan-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-md rounded-[28px] sm:rounded-[32px] border border-white/60 bg-white/80 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-5 sm:p-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
-            Create Account
-          </h1>
+        <div className="flex justify-center">
+          <div className="text-center">
+            <div className="relative mx-auto w-fit">
+              <div className="absolute inset-0 rounded-full bg-linear-to-r from-emerald-500 to-teal-600 blur-xl opacity-40"></div>
 
-          <p className="mt-2 text-sm sm:text-base text-slate-500">
-            Join our healthcare platform today
-          </p>
+              <div className="relative p-1 rounded-full bg-linear-to-r from-emerald-500 to-teal-600">
+                <div className="h-20 w-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+                  <img
+                    src="/logo.png"
+                    alt="logo"
+                    className="h-14 w-14 object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <h2 className="py-4 text-2xl md:text-3xl font-bold text-gray-900">
+              Create Your Account
+            </h2>
+          </div>
         </div>
 
         <Surface className="bg-transparent shadow-none">

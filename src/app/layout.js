@@ -11,7 +11,9 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Qylentra",
+  title: "Qylentra  - Book Doctor Appointments Online",
+  description:
+    "Book appointments with trusted doctors online. Find specialists and manage healthcare easily.",
   icons: {
     icon: "/logo.png",
   },
@@ -28,7 +30,7 @@ export default function RootLayout({ children }) {
         <main>
           {children}
         </main>
-        <Footer/>
+        <Footer />
         <Toaster
           position="top-center"
           reverseOrder={false}

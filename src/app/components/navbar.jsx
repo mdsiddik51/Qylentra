@@ -53,6 +53,9 @@ const Navbar = () => {
             </button>
             <div className="flex items-center  gap-2">
               <img src="/logo.png" alt="Qylentra" className="w-20 h-20" />
+              <h1 className="text-xl hidden md:block  md:text-2xl font-black bg-linear-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent tracking-wider">
+                QYENTRA
+              </h1>
             </div>
           </div>
 

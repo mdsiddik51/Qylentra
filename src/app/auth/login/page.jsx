@@ -59,40 +59,33 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-emerald-50 to-cyan-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-md rounded-[28px] sm:rounded-[32px] border border-white/60 bg-white/80 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-5 sm:p-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
-            Login your Account
-          </h1>
+        <div className="flex justify-center">
+          <div className="text-center">
+            <div className="relative mx-auto w-fit">
+              <div className="absolute inset-0 rounded-full bg-linear-to-r from-emerald-500 to-teal-600 blur-xl opacity-40"></div>
+
+              <div className="relative p-1 rounded-full bg-linear-to-r from-emerald-500 to-teal-600">
+                <div className="h-20 w-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+                  <img
+                    src="/logo.png"
+                    alt="logo"
+                    className="h-14 w-14 object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <h2 className="py-4 text-2xl md:text-3xl font-bold text-gray-900">
+              Login your Account
+            </h2>
+          </div>
         </div>
+      
 
         <Surface className="bg-transparent shadow-none">
-          <Form onSubmit={onSubmit} className="space-y-6">
+          <Form onSubmit={onSubmit} className="space-y-4">
             <Fieldset>
               <Fieldset.Group className="space-y-5">
-                <TextField
-                  isRequired
-                  name="name"
-                  validate={(value) => {
-                    if (value.length < 3) {
-                      return "Name must be at least 3 characters";
-                    }
-
-                    return null;
-                  }}
-                >
-                  <Label className="mb-2 block text-sm font-semibold text-slate-700">
-                    Full Name
-                  </Label>
-
-                  <Input
-                    placeholder="John Doe"
-                    variant="secondary"
-                    className="h-12 rounded-sm w-full"
-                  />
-
-                  <FieldError />
-                </TextField>
-
                 <TextField isRequired name="email" type="email">
                   <Label className="mb-2 block text-sm font-semibold text-slate-700">
                     Email Address
@@ -163,13 +156,18 @@ const Login = () => {
                     </InputGroup.Suffix>
                   </InputGroup>
 
-                  <Description className="mt-2 text-xs sm:text-sm text-slate-500 ">
+                  <Description className=" text-xs sm:text-sm text-slate-500 ">
                     Must contain at least 6 characters, 1 uppercase, 1 lowercase
                     and 1 number
                   </Description>
 
                   <FieldError />
                 </TextField>
+                <div>
+                  <h2 className="flex justify-end font-semibold">
+                    <Link href={``}>Forgot Password</Link>
+                  </h2>
+                </div>
               </Fieldset.Group>
 
               <Fieldset.Actions className="flex flex-col sm:flex-row gap-3">

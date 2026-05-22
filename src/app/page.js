@@ -1,4 +1,4 @@
-import { getDoctorData } from '@/lib/data';
+
 import { BookmarkFill } from '@gravity-ui/icons';
 import { LockOpen } from '@gravity-ui/icons';
 import { PersonMagnifier } from '@gravity-ui/icons';
@@ -10,8 +10,9 @@ import {
   FaHospital,
   FaStar,
 } from "react-icons/fa";
+import { getDoctorData } from '@/lib/data';
 const Home = async () => {
-  const response = await getDoctorData();
+  const response = await getDoctorData()
   const data = Array.isArray(response) ? response : [];
   const topDoctors = data.sort((a, b) => b.rating - a.rating).slice(0, 3);
 

@@ -13,11 +13,30 @@ import {
   TimeField,
 } from "@heroui/react";
 import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 const Booking = () => {
   const router = useRouter();
   const params = useParams();
   const doctorId = params?.id;
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const { data } = await authClient.token();
+        const accessToken = data?.token;
+
+        if (accessToken) {
+          setToken(accessToken);
+        }
+      } catch (error) {
+        console.error("Failed to get token:", error);
+      }
+    };
+
+    fetchToken();
+  }, []);
 
   // Session
   const { data: session } = useSession();
@@ -40,7 +59,6 @@ const Booking = () => {
     e.target.reset();
   };
 
-
   const addAppointment = async (userData) => {
     try {
       const { data: jwtdata } = await authClient.token();
@@ -50,7 +68,11 @@ const Booking = () => {
         toast.error("Authentication failed");
         return;
       }
-      const res = await fetch(`http://localhost:8080/doctor/${doctorId}`);
+      const res = await fetch(`http://localhost:8080/doctor/${doctorId}`,{
+        headers: {
+          authorization: `Brarer ${token}`
+        }
+      });
       const DoctorName = await res.json();
       const updateAppointment = {
         doctorId,

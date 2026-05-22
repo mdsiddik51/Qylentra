@@ -1,7 +1,13 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import DashboardClient from "../components/dasboard";
-import { DeletUser } from "@/lib/actions";
+import { DeletUser, updateAppointment } from "@/lib/actions";
+
+export const metadata = {
+  title: "Dashboard | Qylentra",
+  description:
+    "Access your Qylentra dashboard to manage doctor appointments, track schedules, view booking history, and stay connected with your healthcare services in one place.",
+};
 
 const Dashboard = async () => {
   // Get session
@@ -16,7 +22,7 @@ const Dashboard = async () => {
   const token = tokenData?.token;
   const user = session?.user;
   const response = await fetch(
-    `http://localhost:8080/appointments/user/${user?.id}`,
+    `https://qylentra-server.vercel.app/appointments/user/${user?.id}`,
     {
       method: "GET",
       headers: {
@@ -31,7 +37,12 @@ const Dashboard = async () => {
 
   return (
     <div>
-      <DashboardClient DeletUser={DeletUser}  user={user} appointments={appointments} />
+      <DashboardClient
+        DeletUser={DeletUser}
+        user={user}
+        appointments={appointments}
+        updateAppointment={updateAppointment}
+      />
     </div>
   );
 };
