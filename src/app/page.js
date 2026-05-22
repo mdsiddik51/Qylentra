@@ -11,7 +11,8 @@ import {
   FaStar,
 } from "react-icons/fa";
 const Home = async () => {
-  const data = await getDoctorData();
+  const response = await getDoctorData();
+  const data = Array.isArray(response) ? response : [];
   const topDoctors = data.sort((a, b) => b.rating - a.rating).slice(0, 3);
 
   const specialties = [
@@ -290,12 +291,12 @@ const Home = async () => {
                   className=" rounded-3xl border border-gray-200 bg-white p-8 text-center hover:-translate-y-2 hover:border-purple-400 transition-all duration-300 shadow-md hover:shadow-2xl"
                 >
 
-     
+
                   <div className=" mx-auto flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-[#4F39F6] to-[#9514FA] text-white text-4xl shadow-lg">
                     {item.icon}
                   </div>
 
-     
+
                   <h3 className="mt-6 text-5xl font-black text-gray-900">
                     {item.value}
                   </h3>

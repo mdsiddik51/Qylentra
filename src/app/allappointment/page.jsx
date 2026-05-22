@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getDoctorData } from "@/lib/data";
 import { Label, SearchField } from "@heroui/react";
 import DoctorCard from "../components/doctorcard";
+
 const appointment = () => {
   const [doctordata, setDoctors] = useState([]);
   const [search, setSearch] = useState("");

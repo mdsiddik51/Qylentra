@@ -15,7 +15,6 @@ import {
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 const Booking = () => {
-
   const router = useRouter();
   const params = useParams();
   const doctorId = params?.id;
@@ -41,7 +40,7 @@ const Booking = () => {
     e.target.reset();
   };
 
-  // Add appointment
+
   const addAppointment = async (userData) => {
     try {
       const { data: jwtdata } = await authClient.token();
@@ -51,10 +50,13 @@ const Booking = () => {
         toast.error("Authentication failed");
         return;
       }
+      const res = await fetch(`http://localhost:8080/doctor/${doctorId}`);
+      const DoctorName = await res.json();
       const updateAppointment = {
         doctorId,
         userId: session?.user?.id,
         email: userData.email,
+        doctorname: DoctorName.name,
         patientName: userData.patientName,
         gender: userData.gender,
         phone: userData.phone,
@@ -85,7 +87,7 @@ const Booking = () => {
 
       // Success
       toast.success("Appointment booked successfully 🎉");
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (error) {
       toast.error("Something went wrong");
     }
@@ -116,7 +118,7 @@ const Booking = () => {
         </div>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <TextField
-          isRequired
+            isRequired
             className="w-full"
             name="email"
             type="email"
@@ -126,7 +128,7 @@ const Booking = () => {
             <Input placeholder="Enter your email" />
           </TextField>
           <TextField
-          isRequired
+            isRequired
             className="w-full"
             name="patientName"
             type="text"
@@ -145,7 +147,7 @@ const Booking = () => {
                 </Select.Trigger>
                 <Select.Popover>
                   <ListBox>
-                    <ListBox.Item id="mail"  textValue="Florida">
+                    <ListBox.Item id="mail" textValue="Florida">
                       Male
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
@@ -159,7 +161,7 @@ const Booking = () => {
             </div>
             <div>
               <TextField
-              isRequired
+                isRequired
                 className="w-fit"
                 name="phone"
                 type="tel"

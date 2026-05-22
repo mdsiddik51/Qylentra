@@ -1,6 +1,4 @@
-
 "use client";
-
 import { authClient } from "@/lib/auth-client";
 import { PersonPencil } from "@gravity-ui/icons";
 
@@ -14,11 +12,12 @@ import {
   Button,
   InputGroup,
   Tabs,
+  AlertDialog,
 } from "@heroui/react";
 
 import toast from "react-hot-toast";
 
-const DashboardClient = ({ user, appointments }) => {
+const DashboardClient = ({ user, appointments, DeletUser }) => {
   // Update profile
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +34,10 @@ const DashboardClient = ({ user, appointments }) => {
       return;
     }
     toast.success("Profile updated successfully 🎉");
+  };
+
+  const handeldelte = async (userid) => {
+    await DeletUser(userid);
   };
 
   return (
@@ -72,6 +75,8 @@ const DashboardClient = ({ user, appointments }) => {
                   <div className="pt-2 space-y-1 text-sm text-gray-600">
                     <p>Email: {appointment.email}</p>
 
+                    <p>Doctor Name : {appointment.doctorname}</p>
+
                     <p>Gender: {appointment.gender}</p>
 
                     <p>Phone: {appointment.phone}</p>
@@ -79,6 +84,125 @@ const DashboardClient = ({ user, appointments }) => {
                     <p>Date: {appointment.date}</p>
 
                     <p>Time: {appointment.time}</p>
+                  </div>
+                  <div className="flex justify-between pt-4">
+                    <div>
+                      <Modal>
+                        <Button
+                          variant="secondary"
+                          className="rounded-xl text-sm"
+                        >
+                          <PersonPencil className="size-4" />
+                          Edit Appointment
+                        </Button>
+
+                        <Modal.Backdrop>
+                          <Modal.Container placement="center">
+                            <Modal.Dialog className="w-full max-w-md rounded-2xl">
+                              <Modal.CloseTrigger />
+
+                              <Modal.Header>
+                                <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
+                                  <PersonPencil className="size-5" />
+                                </Modal.Icon>
+
+                                <Modal.Heading>
+                                  Update Information
+                                </Modal.Heading>
+                              </Modal.Header>
+
+                              <Modal.Body className="p-5">
+                                <Surface variant="default">
+                                  <form
+                                    onSubmit={onSubmit}
+                                    className="flex flex-col gap-4"
+                                  >
+                                    <TextField
+                                      isRequired
+                                      name="name"
+                                      type="text"
+                                    >
+                                      <Label>Name</Label>
+
+                                      <Input
+                                        name="name"
+                                        defaultValue={user?.name || ""}
+                                        placeholder="Enter your name"
+                                      />
+                                    </TextField>
+
+                                    <TextField
+                                      isRequired
+                                      name="image"
+                                      type="text"
+                                    >
+                                      <Label>Image Link</Label>
+
+                                      <InputGroup>
+                                        <InputGroup.Input
+                                          name="image"
+                                          defaultValue={user?.image || ""}
+                                          placeholder="https://imgUrl...."
+                                          className="w-full"
+                                        />
+                                      </InputGroup>
+                                    </TextField>
+
+                                    <Modal.Footer>
+                                      <Button slot="close" variant="secondary">
+                                        Cancel
+                                      </Button>
+
+                                      <Button type="submit" slot="close">
+                                        Update
+                                      </Button>
+                                    </Modal.Footer>
+                                  </form>
+                                </Surface>
+                              </Modal.Body>
+                            </Modal.Dialog>
+                          </Modal.Container>
+                        </Modal.Backdrop>
+                      </Modal>
+                    </div>
+                    <div>
+                      <AlertDialog>
+                        <Button variant="danger">Delete Appointment</Button>
+                        <AlertDialog.Backdrop>
+                          <AlertDialog.Container>
+                            <AlertDialog.Dialog className="sm:max-w-[400px]">
+                              <AlertDialog.CloseTrigger />
+                              <AlertDialog.Header>
+                                <AlertDialog.Icon status="danger" />
+                                <AlertDialog.Heading>
+                                  Delete Your Appointment permanently?
+                                </AlertDialog.Heading>
+                              </AlertDialog.Header>
+                              <AlertDialog.Body>
+                                <p>
+                                  This will permanently delete the appointment
+                                  for
+                                  <strong> {appointment.patientName} </strong>.
+                                  This action cannot be undone.
+                                </p>
+                              </AlertDialog.Body>
+                              <AlertDialog.Footer>
+                                <Button slot="close" variant="tertiary">
+                                  Cancel
+                                </Button>
+                                <Button
+                                  onClick={() => handeldelte(appointment._id)}
+                                  slot="close"
+                                  variant="danger"
+                                >
+                                  Confirm Delete
+                                </Button>
+                              </AlertDialog.Footer>
+                            </AlertDialog.Dialog>
+                          </AlertDialog.Container>
+                        </AlertDialog.Backdrop>
+                      </AlertDialog>
+                    </div>
                   </div>
                 </div>
               ))

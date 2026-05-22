@@ -33,9 +33,6 @@ const Login = () => {
       password: userData.password, // required
       rememberMe: true,
     });
-
-    const { data: tokenData } = await authClient.token();
-    console.log(tokenData);
     if (error) {
       toast.error(error.message || "Something went wrong");
       setTimeout(() => {
@@ -43,7 +40,6 @@ const Login = () => {
       }, 1000);
       return;
     }
-    // token : eyJhbGciOiJFZERTQSIsImtpZCI6IjZhMGQ1MGRmNGJlYjRmM2…dVuAxMhliiSo0WoomxgLdqJYBFKbNNk6gojGR9CUcOO49A4Bw
     setTimeout(() => {
       toast.success("Welcome to Qylentra 🎉");
       window.location.href = "/";

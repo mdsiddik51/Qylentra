@@ -12,4 +12,4 @@ export const detailsData = async (id , token) => {
     });
     const data = await response.json();
     return data;
-}
+};

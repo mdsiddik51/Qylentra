@@ -8,7 +8,7 @@ const Details = async ({ params }) => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-  const doctor = await detailsData(id , token);
+  const doctor = await detailsData(id, token);
   return (
     <div className="w-11/12 mx-auto">
       <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-emerald-50 px-4 py-10">

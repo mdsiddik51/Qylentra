@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import DashboardClient from "../components/dasboard";
+import { DeletUser } from "@/lib/actions";
 
 const Dashboard = async () => {
   // Get session
@@ -14,23 +15,23 @@ const Dashboard = async () => {
   });
   const token = tokenData?.token;
   const user = session?.user;
-    const response = await fetch(
-      `http://localhost:8080/appointment/${user?.id}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        cache: "no-store",
+  const response = await fetch(
+    `http://localhost:8080/appointments/user/${user?.id}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+      cache: "no-store",
+    },
+  );
 
-    const data = await response.json();
-    let appointments = data || [];
+  const data = await response.json();
+  let appointments = data || [];
 
   return (
     <div>
-      <DashboardClient user={user} appointments={appointments} />
+      <DashboardClient DeletUser={DeletUser}  user={user} appointments={appointments} />
     </div>
   );
 };
