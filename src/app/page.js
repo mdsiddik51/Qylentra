@@ -136,7 +136,7 @@ const Home = async () => {
           <div className="relative flex justify-center items-end">
             <div className="absolute -bottom-8 z-20 flex items-center gap-6 bg-white/85 backdrop-blur-2xl border border-white rounded-[32px] px-6 py-6 shadow-2xl">
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                <div className="w-14 h-14 sm:h-13 sm:w-13  rounded-2xl bg-emerald-100 flex items-center justify-center">
                   <BookmarkFill />
                 </div>
                 <div>
@@ -150,7 +150,7 @@ const Home = async () => {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                <div className="w-14 h-14 sm:h-13 sm:w-13 rounded-2xl bg-emerald-100 flex items-center justify-center">
                   <PersonMagnifier />
                 </div>
                 <div>
@@ -164,7 +164,7 @@ const Home = async () => {
               </div>
               <div className="w-px h-14 bg-slate-200"></div>
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                <div className="w-14 h-14  rounded-2xl bg-emerald-100 flex items-center justify-center">
                   <LockOpen />
                 </div>
                 <div>
@@ -293,7 +293,7 @@ const Home = async () => {
                 >
 
 
-                  <div className=" mx-auto flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-[#4F39F6] to-[#9514FA] text-white text-4xl shadow-lg">
+                  <div className=" mx-auto flex items-center justify-center w-20 h-20 rounded-2xl bg-linear-to-r from-[#4F39F6] to-[#9514FA] text-white text-4xl shadow-lg">
                     {item.icon}
                   </div>
 

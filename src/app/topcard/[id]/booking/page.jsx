@@ -26,7 +26,6 @@ const Booking = () => {
       try {
         const { data } = await authClient.token();
         const accessToken = data?.token;
-
         if (accessToken) {
           setToken(accessToken);
         }
@@ -68,11 +67,14 @@ const Booking = () => {
         toast.error("Authentication failed");
         return;
       }
-      const res = await fetch(`http://localhost:8080/doctor/${doctorId}`,{
-        headers: {
-          authorization: `Brarer ${token}`
-        }
-      });
+      const res = await fetch(
+        `https://qylentra-server.vercel.app/doctor/${doctorId}`,
+        {
+          headers: {
+            authorization: `Brarer ${token}`,
+          },
+        },
+      );
       const DoctorName = await res.json();
       const updateAppointment = {
         doctorId,
@@ -87,7 +89,7 @@ const Booking = () => {
       };
 
       const response = await fetch(
-        `http://localhost:8080/booking/${doctorId}`,
+        `https://qylentra-server.vercel.app/booking/${doctorId}`,
         {
           method: "PATCH",
 
@@ -101,13 +103,10 @@ const Booking = () => {
       );
 
       const data = await response.json();
-
       if (!response.ok) {
         toast.error(data?.message || "Booking failed");
         return;
       }
-
-      // Success
       toast.success("Appointment booked successfully 🎉");
       router.push("/dashboard");
     } catch (error) {

@@ -28,7 +28,7 @@ const TopCard = ({ doctor }) => {
 
       <div className="p-5">
         <div className="flex items-center gap-3 bg-slate-50 rounded-2xl px-4 py-3 border border-slate-100 mb-3">
-          <div className="w-11 h-11 rounded-2xl bg-emerald-100 flex items-center justify-center text-lg shadow-inner flex-shrink-0">
+          <div className="w-11 h-11 rounded-2xl bg-emerald-100 flex items-center justify-center text-lg shadow-inner shrink-0">
             🏥
           </div>
 
@@ -42,7 +42,7 @@ const TopCard = ({ doctor }) => {
         </div>
 
         <div className="flex items-center gap-3 bg-slate-50 rounded-2xl px-4 py-3 border border-slate-100 mb-4">
-          <div className="w-11 h-11 rounded-2xl bg-cyan-100 flex items-center justify-center text-lg shadow-inner flex-shrink-0">
+          <div className="w-11 h-11 rounded-2xl bg-cyan-100 flex items-center justify-center text-lg shadow-inner shrink-0">
             📍
           </div>
 
@@ -64,7 +64,7 @@ const TopCard = ({ doctor }) => {
             </h3>
           </div>
 
-          <div className="rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 p-4 text-white shadow-md">
+          <div className="rounded-2xl bg-linear-to-br from-emerald-500 to-teal-500 p-4 text-white shadow-md">
             <p className="text-xs text-white/80">Consultation Fee</p>
 
             <h3 className="text-sm font-bold mt-2">৳ {doctor.fee}</h3>

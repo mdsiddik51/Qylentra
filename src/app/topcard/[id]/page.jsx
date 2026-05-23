@@ -17,17 +17,17 @@ const Details = async ({ params }) => {
   const doctor = await detailsData(id, token);
   return (
     <div className="w-11/12 mx-auto">
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-emerald-50 px-4 py-10">
+      <section className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 via-white to-emerald-50 px-4 py-10">
         <div className="w-full max-w-6xl">
           <div className="bg-white rounded-[30px] sm:rounded-[40px] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
-            <div className="relative h-[320px] sm:h-[420px] lg:h-full overflow-hidden flex items-center justify-center bg-black/5">
+            <div className="relative h-80 sm:h-105 lg:h-full overflow-hidden flex items-center justify-center bg-black/5">
               <img
                 src={doctor.image}
                 alt={doctor.name}
                 className="w-full h-full object-cover object-center scale-105"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
 
               <div className="absolute top-4 left-4 sm:top-5 sm:left-5 bg-white/90 backdrop-blur-md px-3 sm:px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
                 <span className="text-yellow-400 text-lg">★</span>

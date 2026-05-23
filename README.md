@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌐 Qylentra
 
-## Getting Started
+Qylentra is a full-stack doctor appointment booking platform designed to make healthcare access simple, fast, and reliable. Users can search doctors, view profiles, and book appointments online with ease.
 
-First, run the development server:
+---
 
+## 🌍 Live Site
+
+Client Side Live URL: https://qylentra.vercel.app
+
+---
+
+## 🧠 Project Overview
+
+Qylentra connects patients with qualified doctors in different specialties. It allows users to browse doctors, check availability, and manage their appointments through a simple dashboard.
+
+The goal of this project is to reduce the complexity of booking medical appointments and improve patient experience.
+
+---
+
+## ✨ Key Features
+
+- 🔐 Secure authentication system (login & registration with JWT)
+- 👨‍⚕️ Doctor listing with specialization and detailed profiles
+- 🔎 Search and filter doctors by category
+- 📅 Online appointment booking system
+- 🧾 User dashboard to view, update, and cancel appointments
+- 📱 Fully responsive UI (mobile, tablet, desktop)
+- ⚡ Fast performance using Next.js optimization
+- 🗂️ Organized backend API for handling doctors and appointments
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- Next.js
+- React
+- Tailwind CSS
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MongoDB
+
+### Authentication
+- JWT (JSON Web Token)
+
+---
+
+## 📦 Installation Guide
+
+### 1. Clone Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone https://github.com/mdsiddik51/Qylentra.git

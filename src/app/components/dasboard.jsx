@@ -20,22 +20,26 @@ import {
   DatePicker,
   TimeField,
 } from "@heroui/react";
-
+import { useState } from "react";
 import toast from "react-hot-toast";
-
 const DashboardClient = ({
   user,
   appointments,
   DeletUser,
   updateAppointment,
 }) => {
-  // Update profile
+  // Update profile info
+  const [userState, setUserState] = useState(user);
+  const [isOpen, setIsOpen] = useState(false);
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const image = e.target.image.value;
 
-    const { error } = await authClient.updateUser({
+    const formData = new FormData(e.target);
+    const name = formData.get("name");
+    const image = formData.get("image");
+
+    const { data, error } = await authClient.updateUser({
       name,
       image,
     });
@@ -44,16 +48,31 @@ const DashboardClient = ({
       toast.error(error.message || "Update failed");
       return;
     }
-    toast.success("Profile updated successfully 🎉");
-  };
 
+    setUserState(
+      data?.user || {
+        ...userState,
+        name,
+        image,
+      },
+    );
+
+    setIsOpen(false);
+
+    toast.success("Profile updated successfully!");
+  };
   const handeldelte = async (userid, id) => {
-    await DeletUser(userid, id);
+    const data = await DeletUser(userid, id);
+
+    if (data?.deletedCount > 0) {
+      toast.success("Appointment deleted successfully");
+    } else {
+      toast.error("Delete failed");
+    }
   };
 
-  const handleUpdate = (e, id) => {
+  const handleUpdate = async (e, id) => {
     e.preventDefault();
-
     const formData = {
       email: e.target.email.value,
       patientName: e.target.patientName.value,
@@ -62,8 +81,12 @@ const DashboardClient = ({
       date: e.target.date.value,
       time: e.target.time.value,
     };
-
-    updateAppointment(formData, id);
+    const result = await updateAppointment(formData, id);
+    if (result?.modifiedCount > 0) {
+      toast.success("Appointment updated successfully");
+    } else {
+      toast.error("Update failed");
+    }
   };
 
   return (
@@ -151,9 +174,12 @@ const DashboardClient = ({
                                       name="email"
                                       type="email"
                                       variant="secondary"
+                                      
                                     >
                                       <Label>Your Email</Label>
-                                      <Input placeholder="Enter your email" />
+                                      <Input
+                                        placeholder="Enter your email"
+                                      />
                                     </TextField>
                                     <TextField
                                       isRequired
@@ -173,7 +199,10 @@ const DashboardClient = ({
                                       variant="secondary"
                                     >
                                       <Label>Patient Name</Label>
-                                      <Input placeholder="Enter the Patient Name" />
+                                      <Input
+                                        defaultValue={appointment.patientName}
+                                        placeholder="Enter the Patient Name"
+                                      />
                                     </TextField>
                                     <div className="flex gap-4">
                                       <div>
@@ -216,7 +245,10 @@ const DashboardClient = ({
                                           variant="secondary"
                                         >
                                           <Label>Phone</Label>
-                                          <Input placeholder="Enter your phone number" />
+                                          <Input
+                                            defaultValue={appointment.phone}
+                                            placeholder="Enter your phone number"
+                                          />
                                         </TextField>
                                       </div>
                                     </div>
@@ -298,7 +330,7 @@ const DashboardClient = ({
                                       </Button>
 
                                       <Button type="submit" slot="close">
-                                        Update Appointment{" "}
+                                        Update Appointment
                                       </Button>
                                     </Modal.Footer>
                                   </form>
@@ -314,7 +346,7 @@ const DashboardClient = ({
                         <Button variant="danger">Delete Appointment</Button>
                         <AlertDialog.Backdrop>
                           <AlertDialog.Container>
-                            <AlertDialog.Dialog className="sm:max-w-[400px]">
+                            <AlertDialog.Dialog className="sm:max-w-100">
                               <AlertDialog.CloseTrigger />
                               <AlertDialog.Header>
                                 <AlertDialog.Icon status="danger" />
@@ -361,23 +393,23 @@ const DashboardClient = ({
         <Tabs.Panel id="profile" className="pt-8">
           <div className="shadow-lg rounded-3xl p-5 md:p-8 bg-white max-w-2xl mx-auto">
             <div className="flex flex-col items-center text-center gap-4">
-              <div className="p-1 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600">
+              <div className="p-1 rounded-full bg-linear-to-r from-blue-500 to-indigo-600">
                 <Avatar className="w-24 h-24 md:w-28 md:h-28 bg-white rounded-full">
                   <Avatar.Image
                     className="w-full h-full object-cover"
-                    alt={user?.name || "User"}
-                    src={user?.image || ""}
+                    alt={userState?.name}
+                    src={userState?.image || ""}
                   />
 
                   <Avatar.Fallback>
-                    {user?.name?.slice(0, 2) || "US"}
+                    {userState?.name?.slice(0, 2) || "US"}
                   </Avatar.Fallback>
                 </Avatar>
               </div>
 
               <div>
                 <h2 className="text-xl md:text-2xl font-bold text-gray-800">
-                  {user?.name}
+                  {userState?.name}
                 </h2>
 
                 <p className="text-sm md:text-base text-gray-500">
@@ -387,8 +419,12 @@ const DashboardClient = ({
             </div>
 
             <div className="flex justify-center pt-5">
-              <Modal>
-                <Button variant="secondary" className="rounded-xl text-sm">
+              <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
+                <Button
+                  variant="secondary"
+                  onPress={() => setIsOpen(true)}
+                  className="rounded-xl text-sm"
+                >
                   <PersonPencil className="size-4" />
                   Edit Profile
                 </Button>
@@ -412,25 +448,21 @@ const DashboardClient = ({
                             onSubmit={onSubmit}
                             className="flex flex-col gap-4"
                           >
-                            <TextField isRequired name="name" type="text">
+                            <TextField isRequired name="name">
                               <Label>Name</Label>
-
                               <Input
                                 name="name"
-                                defaultValue={user?.name || ""}
+                                defaultValue={userState?.name}
                                 placeholder="Enter your name"
                               />
                             </TextField>
 
-                            <TextField isRequired name="image" type="text">
+                            <TextField isRequired name="image">
                               <Label>Image Link</Label>
-
                               <InputGroup>
                                 <InputGroup.Input
                                   name="image"
-                                  defaultValue={user?.image || ""}
                                   placeholder="https://imgUrl...."
-                                  className="w-full"
                                 />
                               </InputGroup>
                             </TextField>

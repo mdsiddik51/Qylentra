@@ -5,7 +5,6 @@ export const metadata = {
   description:
     "View and manage all your doctor appointments in one place. Check booking status, upcoming schedules, and appointment history easily with Qylentra.",
 };
-
 export default function AllAppointment() {
   return (
     <div>
